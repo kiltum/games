@@ -7,7 +7,7 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Ping Pong")
 
     property int ballX: 100
     property int ballY: 100
@@ -18,12 +18,15 @@ Window {
 
     property bool mute: false
 
+    property int border: 10
+    property int score: 0
+
     Rectangle {
         id: pole
-        x: 50
-        y: 50
-        width: 500
-        height: 400
+        x: main.border
+        y: main.border
+        width: main.width-main.border*2
+        height: main.height-main.border*2
         color: "blue"
 
         Ball {
@@ -56,10 +59,10 @@ Window {
         if((ballX + ballSize) >= racketX) { // no need to check if ball far left from racket
             if((ballY + ballSize) >= racketY) { // ball below top corner of rocket
                 if((ballY + ballSize) <= racketY+racketSize) {
-                    console.log("rocket")
                     if (!main.mute) {
                         rocketHit.play()
                     }
+                    main.score = main.score + 1
                     ball.velocityX = -ball.speed
                 }
                 else {
@@ -92,6 +95,16 @@ Window {
     SoundEffect {
         id: failHit
         source: "fail.wav"
+    }
+
+    Text {
+        x: main.border*2
+        y: main.border*2
+        text: main.score
+        font.family: "Helvetica"
+        font.pointSize: 48
+        font.bold: true
+        color: "red"
     }
 
 }
