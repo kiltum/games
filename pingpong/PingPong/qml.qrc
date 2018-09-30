@@ -4,5 +4,7 @@
         <file>Ball.qml</file>
         <file>pong.wav</file>
         <file>Racket.qml</file>
+        <file>rocket.wav</file>
+        <file>fail.wav</file>
     </qresource>
 </RCC>

@@ -5,7 +5,7 @@ Item {
     id: mainBall
     property bool run: true
     property int speed: 10
-    property bool mute: true
+    property bool mute: false
     property int velocityX: -speed
     property int velocityY: -speed
 
@@ -79,8 +79,7 @@ Item {
         }
     }
 
-    // sound from https://www.freesoundeffects.com/free-sounds/ping-pong-10108/
-    // and then cutted in audacity
+    // sound from https://freesound.org/people/ProjectsU012/sounds/341024/
     SoundEffect {
         id: playBall
         source: "pong.wav"

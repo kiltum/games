@@ -1,5 +1,6 @@
 import QtQuick 2.9
 import QtQuick.Window 2.2
+import QtMultimedia 5.8
 
 Window {
     id: main
@@ -14,6 +15,8 @@ Window {
     property int racketY: 30
     property int racketX: pole.width - 30
     property int racketSize: 150
+
+    property bool mute: false
 
     Rectangle {
         id: pole
@@ -33,6 +36,7 @@ Window {
                 ballY = y
                 checkCollide()
             }
+            mute: main.mute
         }
 
         Racket {
@@ -52,16 +56,38 @@ Window {
             if((ballY + ballSize) >= racketY) { // ball below top corner of rocket
                 if((ballY + ballSize) <= racketY+racketSize) {
                     console.log("rocket")
+                    if (!main.mute) {
+                        rocketHit.play()
+                    }
                     ball.velocityX = -ball.speed
                 }
                 else {
-                    console.log("HIT")
+                    fail()
                 }
             }
             else {
-                console.log("hit")
+                fail()
             }
         }
+    }
+
+    function fail() {
+        ball.run=false
+        failHit.play()
+
+    }
+
+    // sound from https://freesound.org/people/ProjectsU012/sounds/340982/
+    SoundEffect {
+        id: rocketHit
+        source: "rocket.wav"
+    }
+
+    // https://freesound.org/people/OwlStorm/sounds/404743/
+
+    SoundEffect {
+        id: failHit
+        source: "fail.wav"
     }
 
 }
