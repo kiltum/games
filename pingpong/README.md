@@ -2,7 +2,7 @@
 
 Here is a very simple game
 
-![screenshot of the game](https://github.com/kiltum/games/blob/master/pingpong/screenshot.png)
+![screenshot of the game](https://raw.githubusercontent.com/kiltum/games/master/pingpong/screenshot.png)
 
 https://github.com/kiltum/games/commit/818bcbd6fc8f1172653603a793ce31716fbeb864
 
