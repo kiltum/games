@@ -8,20 +8,16 @@ Window {
     title: qsTr("Hello World")
 
     Rectangle {
-        x: 10
-        y: 10
+        x: 50
+        y: 50
         width: 400
         height: 400
         color: "blue"
+
+        Ball {
+            x: 300
+            y: 200
+        }
     }
 
-    Ball {
-        x: 200
-        y: 200
-    }
-    onHeightChanged: {
-        console.log(width)
-        console.log(height)
-        console.log(Screen.pixelDensity)
-    }
 }
