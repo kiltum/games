@@ -4,7 +4,7 @@ import QtMultimedia 5.8
 Item {
     id: mainBall
     property bool run: true
-    property int speed: 10
+    property int speed: 15
     property bool mute: true
     property int velocityX: speed
     property int velocityY: speed
@@ -49,13 +49,12 @@ Item {
                 hit()
             }
 
-
         }
     }
 
     function hit() {
         if (mainBall.mute == false) {
-        playBall.play();
+            playBall.play();
         }
     }
 

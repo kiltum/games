@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>Ball.qml</file>
         <file>pong.wav</file>
+        <file>Racket.qml</file>
     </qresource>
 </RCC>

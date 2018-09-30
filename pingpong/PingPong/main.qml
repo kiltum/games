@@ -18,6 +18,11 @@ Window {
             x: 300
             y: 200
         }
+
+        Racket {
+            x: parent.width-20
+            y: 20
+        }
     }
 
 }
