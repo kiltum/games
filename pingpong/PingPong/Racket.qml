@@ -22,12 +22,19 @@ Item {
         if(racket.y < 0) {
             racket.y = 0
         }
+
+
+
         racket.moved(y, size)
     }
     Keys.onDownPressed: {
         if(racket.y < (limitY - size) ) {
             racket.y = racket.y + speed
         }
+        if((racket.y + racket.size) > limitY) {
+            racket.y = limitY - racket.size
+        }
+
         racket.moved(y, size)
     }
 }

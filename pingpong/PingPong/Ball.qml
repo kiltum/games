@@ -4,12 +4,12 @@ import QtMultimedia 5.8
 Item {
     id: mainBall
     property bool run: true
-    property int speed: 58
+    property int speed: 10
     property bool mute: true
     property int velocityX: -speed
     property int velocityY: -speed
 
-    property int size: 23
+    property int size: 20
 
     property int limitX: parent.width
     property int limitY: parent.height
@@ -28,7 +28,7 @@ Item {
 
     Timer {
         running: parent.run
-        interval: 500
+        interval: 50
         repeat: true
         onTriggered: {
             parent.x = parent.x + velocityX
@@ -69,8 +69,6 @@ Item {
             if (mainBall.y > limitY - mainBall.size/2) {
                mainBall.y = limitY - mainBall.size/2
             }
-
-            console.log(parent.x, parent.y)
             mainBall.moved(parent.x, parent.y)
         }
     }
