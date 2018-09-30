@@ -40,6 +40,7 @@ Window {
         }
 
         Racket {
+            id: racket
             x: racketX
             y: racketY
             size: racketSize
@@ -73,7 +74,10 @@ Window {
 
     function fail() {
         ball.run=false
-        failHit.play()
+        racket.canMove=false
+        if(!main.mute) {
+            failHit.play()
+        }
 
     }
 

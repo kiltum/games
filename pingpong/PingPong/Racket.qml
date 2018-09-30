@@ -5,6 +5,7 @@ Item {
     property int speed: 30
     property int size: 100
 
+    property bool canMove: true
     property int limitY: parent.height
 
     signal moved(int y, int size)
@@ -16,6 +17,10 @@ Item {
     }
     focus: true
     Keys.onUpPressed: {
+        if(!canMove) {
+            return
+        }
+
         if(racket.y > 0) {
             racket.y = racket.y - speed
         }
@@ -28,6 +33,9 @@ Item {
         racket.moved(y, size)
     }
     Keys.onDownPressed: {
+        if(!canMove) {
+            return
+        }
         if(racket.y < (limitY - size) ) {
             racket.y = racket.y + speed
         }
