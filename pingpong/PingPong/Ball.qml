@@ -4,7 +4,7 @@ import QtMultimedia 5.8
 Item {
     id: mainBall
     property bool run: true
-    property int speed: 10
+    property int speed: 1
     property bool mute: false
     property int velocityX: -speed
     property int velocityY: -speed
@@ -28,7 +28,7 @@ Item {
 
     Timer {
         running: parent.run
-        interval: 50
+        interval: 40
         repeat: true
         onTriggered: {
             parent.x = parent.x + velocityX

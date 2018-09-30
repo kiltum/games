@@ -11,7 +11,8 @@ Window {
 
     property int ballX: main.width/2
     property int ballY: main.height/2
-    property int ballSize: 10
+    property int ballSize: 30
+    property int ballSpeed: 10
     property int racketY: 30
     property int racketX: pole.width - 30
     property int racketSize: 150
@@ -34,6 +35,7 @@ Window {
             x: ballX
             y: ballY
             size: ballSize
+            speed: ballSpeed
             onMoved: {
                 ballX = x
                 ballY = y
@@ -58,14 +60,19 @@ Window {
     }
 
     function checkCollide() {
-        if((ballX + ballSize) >= racketX) { // no need to check if ball far left from racket
-            if((ballY + ballSize) >= racketY) { // ball below top corner of rocket
-                if((ballY + ballSize) <= racketY+racketSize) {
+        if((ballX + ball.size/2) >= racketX) { // no need to check if ball far left from racket
+            if((ballY + ball.size/2) >= racketY) { // ball below top corner of rocket
+                if((ballY + ball.size/2) <= racketY+racket.size) {
                     if (!main.mute) {
                         rocketHit.play()
                     }
+                    ball.x = racketX - ball.size/2
                     main.score = main.score + 1
                     ball.velocityX = -ball.speed
+                    if(ball.size > 10) {
+                        ball.size=ball.size-1
+                        ball.speed=ball.speed+1
+                    }
                 }
                 else {
                     fail()
@@ -122,6 +129,8 @@ Window {
                 main.score=0
                 ball.x=main.width/2
                 ball.x=main.height/2
+                ball.speed=ballSpeed
+                ball.size=ballSize
             }
         }
     }
