@@ -4,51 +4,74 @@ import QtMultimedia 5.8
 Item {
     id: mainBall
     property bool run: true
-    property int speed: 15
+    property int speed: 58
     property bool mute: true
-    property int velocityX: speed
-    property int velocityY: speed
+    property int velocityX: -speed
+    property int velocityY: -speed
+
+    property int size: 23
 
     property int limitX: parent.width
     property int limitY: parent.height
 
+    signal moved(int x, int y)
+
     Rectangle {
         id: ball
-        x: -5
-        y: -5
-        height: 10
-        width: 10
+        x: -parent.size/2
+        y: -parent.size/2
+        height: parent.size
+        width: parent.size
         color: "red"
-        radius: width * 0.5
+        radius: parent.size/2
     }
 
     Timer {
         running: parent.run
-        interval: 50
+        interval: 500
         repeat: true
         onTriggered: {
             parent.x = parent.x + velocityX
             parent.y = parent.y + velocityY
-            if (parent.x > limitX - ball.width) {
+
+            if (parent.x > limitX - mainBall.size/2) {
                 velocityX = -speed
                 hit()
             }
 
-            if (parent.x < 0 + ball.width) {
+            if (parent.x < 0 + mainBall.size/2) {
                 velocityX = speed
                 hit()
             }
 
-            if (parent.y > limitY - ball.height) {
+            if (parent.y > limitY - mainBall.size/2) {
                 velocityY = -speed
                 hit()
             }
 
-            if (parent.y < 0 + ball.height) {
+            if (parent.y < 0 + mainBall.size/2) {
                 velocityY = speed
                 hit()
             }
 
+            if (mainBall.y < mainBall.size/2) {
+                mainBall.y = mainBall.size/2
+            }
+
+            if (mainBall.x < mainBall.size/2) {
+                mainBall.x = mainBall.size/2
+            }
+
+            if (mainBall.x > limitX - mainBall.size/2) {
+               mainBall.x = limitX - mainBall.size/2
+            }
+
+            if (mainBall.y > limitY - mainBall.size/2) {
+               mainBall.y = limitY - mainBall.size/2
+            }
+
+            console.log(parent.x, parent.y)
+            mainBall.moved(parent.x, parent.y)
         }
     }
 

@@ -7,6 +7,8 @@ Item {
 
     property int limitY: parent.height
 
+    signal moved(int y, int size)
+
     Rectangle {
         width: 10
         height: parent.size
@@ -20,10 +22,12 @@ Item {
         if(racket.y < 0) {
             racket.y = 0
         }
+        racket.moved(y, size)
     }
     Keys.onDownPressed: {
         if(racket.y < (limitY - size) ) {
             racket.y = racket.y + speed
         }
+        racket.moved(y, size)
     }
 }
