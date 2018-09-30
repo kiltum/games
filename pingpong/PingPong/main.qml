@@ -9,8 +9,8 @@ Window {
     height: 480
     title: qsTr("Ping Pong")
 
-    property int ballX: 100
-    property int ballY: 100
+    property int ballX: main.width/2
+    property int ballY: main.height/2
     property int ballSize: 10
     property int racketY: 30
     property int racketX: pole.width - 30
@@ -40,6 +40,7 @@ Window {
                 checkCollide()
             }
             mute: main.mute
+            run: false
         }
 
         Racket {
@@ -47,6 +48,7 @@ Window {
             x: racketX
             y: racketY
             size: racketSize
+            canMove: false
             onMoved: {
                 racketY = y
                 racketSize = size
@@ -81,6 +83,7 @@ Window {
         if(!main.mute) {
             failHit.play()
         }
+        failedTimer.running=true;
 
     }
 
@@ -107,4 +110,31 @@ Window {
         color: "red"
     }
 
+    // https://freesound.org/people/steel2008/sounds/231277/
+
+    SoundEffect {
+        id: readySetGo
+        source: "start.wav"
+        onPlayingChanged: {
+            if(!playing) {
+                ball.run=true
+                racket.canMove=true
+                main.score=0
+                ball.x=main.width/2
+                ball.x=main.height/2
+            }
+        }
+    }
+
+    Timer {
+        id: failedTimer
+        interval: 100
+        onTriggered: {
+            readySetGo.play()
+        }
+    }
+
+    Component.onCompleted: {
+        readySetGo.play()
+    }
 }

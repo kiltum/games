@@ -6,5 +6,6 @@
         <file>Racket.qml</file>
         <file>rocket.wav</file>
         <file>fail.wav</file>
+        <file>start.wav</file>
     </qresource>
 </RCC>
