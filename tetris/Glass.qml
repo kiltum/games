@@ -9,6 +9,13 @@ Item {
 
     property variant field: []
 
+    property int figx: w/2 // current figure X coordinate
+    property int figy: 0    // Y
+    property int figdeg: 0  // rotate angle
+    property string figcurrent: "" // current figure
+    property string figorig: ""
+
+
     function initField() {
         var i,j
         var cell
@@ -33,9 +40,30 @@ Item {
 
     function clearField() {
         var i,j
+        for(i=0;i<h;i++) {
+            for(j=0;j<w;j++) {
+                if(i===h-1) {
+                  field[i][j].c = '#'
+                } else {
+                    field[i][j].c = '.'
+                }
+
+
+            }
+            field[i][0].c = '#'
+            field[i][w-1].c = '#'
+        }
+
+    }
+
+    function clearTempField() {
+        var i,j
         for(i=0;i<h;i++)
             for(j=0;j<w;j++) {
-               field[i][j].c = '.'
+                if(field[i][j].c === '0')
+                    field[i][j].c = '.'
+                if(field[i][j].c === '_')
+                    field[i][j].c = '.'
             }
     }
 
@@ -43,7 +71,7 @@ Item {
         var i,j
         for(i=0;i<h;i++)
             for(j=0;j<w;j++) {
-               field[i][j].update()
+                field[i][j].update()
             }
     }
 
@@ -52,61 +80,118 @@ Item {
     }
 
 
-    function putFig(x,y, figure) {
+    function putFig(x,y, figure, temp) { // put figure to field
         var i,j
         for(i=0;i<4;i++)
             for(j=0;j<4;j++) {
-               field[i+y][j+x].c = figure[i+j*4]
+                if(temp === true) {
+                    if(field[i+y][j+x].c !== '#')
+                        if(figure[i+j*4] === '#') {
+                            field[i+y][j+x].c = '0'
+                        } else {
+                            field[i+y][j+x].c = '_'
+                        }
+                } else {
+                    field[i+y][j+x].c = figure[i+j*4]
+                }
             }
+    }
+
+
+
+    function canPut(x,y,figure) { // can figure placed?
+        var i,j,s
+
+        s = ''
+        for(i=0;i<4;i++)
+            for(j=0;j<4;j++) {
+                s = s+ field[i+y][j+x].c
+            }
+
+        for(i=0;i<4;i++)
+            for(j=0;j<4;j++) {
+                if(figure[i+j*4] === '#'){
+                    if(field[i+y][j+x].c === '#') {
+                        return false;
+                    }
+                }
+            }
+        return true;
+    }
+
+    function updateFig() {
+        var fi
+        clearTempField()
+        putFig(figx,figy,figcurrent, true)
+        updateField()
+        console.log(figx,figy, figdeg)
     }
 
 
     Rectangle {
-        id: outer
+        id: inner
         x: step
-        y: step
-        width: (w+2)*step
-        height: (h+1)*step
-        color: "blue"
-        Rectangle {
-            id: inner
-            x: step
-            y:0
-            width: w*step
-            height: h*step
-            color: "green"
+        y:0
+        width: w*step
+        height: h*step
+        color: "green"
+        focus: true
+        Keys.onUpPressed: {
+            var newd, fi
+            newd = figdeg + 90
+            if(newd>270) {
+                newd=0
+            }
+            fi = fig.rotate(figorig,newd)
+
+            if(canPut(figx,figy,fi)) {
+                figdeg = newd
+                figcurrent = fi
+            }
+
+            updateFig()
+        }
+        Keys.onLeftPressed: {
+            var newx
+            newx = figx-1
+            if(newx>=0)
+                if(canPut(newx,figy,figcurrent)) {
+                    figx = newx
+                }
+            updateFig()
+        }
+        Keys.onRightPressed: {
+            var newx
+            newx = figx+1
+            if(newx<glass.w-3)
+                if(canPut(newx,figy,figcurrent)) {
+                    figx = newx
+                }
+            updateFig()
         }
     }
 
+
     Timer {
         id: tim
-        interval: 2000
+        interval: 1000
         repeat: true
-        property string f: ""
-        property string fi: ""
-        property int d:0
         onTriggered: {
-            clearField()
-            fi = fig.rotate(f,d)
-            putFig(2,2,fi)
-            updateField()
-            d = d+90
-
-            if(d>270) {
-                d=0
-            }
-
+            console.log("tick")
+            updateFig()
         }
 
-        Component.onCompleted: {
-            f = fig.get()
-        }
     }
 
     Component.onCompleted: {
         initField()
         clearField()
+        figcurrent = fig.get()
+        figorig = figcurrent
+        figx = w/2
+        figy = 0
+        putFig(figx,figy,figcurrent, true)
         updateField()
-        tim.running = true
+        //tim.running = true
     }
 }

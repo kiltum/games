@@ -39,7 +39,7 @@ Item {
 
 
         var s
-        s=4;//Math.random()*7
+        s=Math.random()*7
         if(s<1) return stick;
         if(s<2) return rect;
         if(s<3) return tri;
@@ -53,7 +53,6 @@ Item {
         var r,s, fr
         var x,y,d
 
-        console.log("come",f,deg)
         r = new Array(16)
         fr = new Array(16)
 

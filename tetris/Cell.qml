@@ -7,6 +7,8 @@ Item {
     function getColor() {
         if(c === '.') return "green"
         if(c === '#') return "blue"
+        if(c === '0') return "red"
+        if(c === '_') return "black"
     }
 
     function update() {
