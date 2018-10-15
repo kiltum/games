@@ -5,7 +5,7 @@ Window {
     visible: true
     width: 640
     height: 480
-    title: qsTr("Hello World")
+    title: qsTr("Tetris")
     Glass {
         x:10
         y:10

@@ -15,6 +15,7 @@ Item {
     property string figcurrent: "" // current figure
     property string figorig: ""
 
+    property int score: 0
 
     function initField() {
         var i,j
@@ -36,6 +37,7 @@ Item {
             for(j=0;j<w;j++) {
                 field[i][j] = cell.createObject(inner, {"x": j*step, "y": i*step});
             }
+        score = -1
     }
 
     function clearField() {
@@ -128,7 +130,8 @@ Item {
     }
 
     function newFigure() {
-
+        score = score + 1
+        scoretext.text = score.toString()
         figcurrent = fig.get()
         figorig = figcurrent
         figx = w/2-2
@@ -141,10 +144,31 @@ Item {
         else {
             console.log("No more space. Finish")
             tim.running = false
+            finishtext.text = "FINISH"
         }
 
     }
 
+    function collapseField() { // remove fully filled rows
+        var i,j,q,g
+        for(i=h-1;i>0;i--) {
+            g = 0
+            for(j=1;j<w-1;j++) {
+                if(field[i][j].c !== '$')
+                {
+                    g=1
+                }
+            }
+            if(g===0) {
+                console.log("need collapse on",i)
+                for(q=i;q>0;q--)
+                    for(j=1;j<w-1;j++) {
+                        field[q][j].c = field[q-1][j].c
+                    }
+            }
+        }
+
+    }
 
     Rectangle {
         id: inner
@@ -202,10 +226,32 @@ Item {
                 }
             }
 
+
             putFig(figx,figy,figcurrent, false)
+            collapseField()
             newFigure()
 
         }
+    }
+
+    Text {
+        id: scoretext
+        x: inner.x+inner.width + 20
+        text: "100"
+        font.family: "Helvetica"
+        font.pointSize: 48
+        font.bold: true
+    }
+
+    Text {
+        id: finishtext
+        x: inner.x+inner.width + 20
+        y: scoretext.y+scoretext.paintedHeight+20
+        text: ""
+        font.family: "Helvetica"
+        font.pointSize: 48
+        font.bold: true
+        color: "red"
     }
 
 
@@ -222,8 +268,10 @@ Item {
                 }
             }
             if(newy !== figy) {
+
                 console.log("BOOM. new figure")
                 putFig(figx,figy,figcurrent, false)
+                collapseField()
                 newFigure()
             }
 
