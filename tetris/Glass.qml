@@ -92,7 +92,8 @@ Item {
                             field[i+y][j+x].c = '_'
                         }
                 } else {
-                    field[i+y][j+x].c = figure[i+j*4]
+                    if(field[i+y][j+x].c !== '#')
+                        field[i+y][j+x].c = figure[i+j*4]
                 }
             }
     }
@@ -125,6 +126,17 @@ Item {
         putFig(figx,figy,figcurrent, true)
         updateField()
         //console.log(figx,figy, figdeg)
+    }
+
+    function newFigure() {
+
+        figcurrent = fig.get()
+        figorig = figcurrent
+        figx = w/2
+        figy = 0
+        figdeg = 0
+        putFig(figx,figy,figcurrent, true)
+        updateField()
     }
 
 
@@ -186,6 +198,8 @@ Item {
             }
             if(newy !== figy) {
                 console.log("BOOM")
+                putFig(figx,figy,figcurrent, false)
+                newFigure()
             }
 
             updateFig()
@@ -196,13 +210,12 @@ Item {
     Component.onCompleted: {
         initField()
         clearField()
-        figcurrent = fig.get()
-        figorig = figcurrent
-        figx = w/2
-        figy = 0
-        putFig(figx,figy,figcurrent, true)
-        field[5][5].c = '#'
-        updateField()
+
+        newFigure()
+
+
+//        field[5][5].c = '#'
+//        updateField()
         tim.running = true
     }
 }
