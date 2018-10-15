@@ -124,7 +124,7 @@ Item {
         clearTempField()
         putFig(figx,figy,figcurrent, true)
         updateField()
-        console.log(figx,figy, figdeg)
+        //console.log(figx,figy, figdeg)
     }
 
 
@@ -136,7 +136,7 @@ Item {
         height: h*step
         color: "green"
         focus: true
-        Keys.onUpPressed: {
+        Keys.onUpPressed: { // rotate
             var newd, fi
             newd = figdeg + 90
             if(newd>270) {
@@ -177,7 +177,17 @@ Item {
         interval: 1000
         repeat: true
         onTriggered: {
-            console.log("tick")
+            var newy
+            newy = figy+1
+            if(newy<glass.h-3) {
+                if(canPut(figx,newy,figcurrent)) {
+                    figy = newy
+                }
+            }
+            if(newy !== figy) {
+                console.log("BOOM")
+            }
+
             updateFig()
         }
 
@@ -191,7 +201,8 @@ Item {
         figx = w/2
         figy = 0
         putFig(figx,figy,figcurrent, true)
+        field[5][5].c = '#'
         updateField()
-        //tim.running = true
+        tim.running = true
     }
 }
