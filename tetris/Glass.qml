@@ -84,7 +84,9 @@ Item {
         var i,j
         for(i=0;i<4;i++)
             for(j=0;j<4;j++) {
+                if(i+y<glass.h)
                 if(temp === true) {
+
                     if(field[i+y][j+x].c !== '#')
                         if(figure[i+j*4] === '#') {
                             field[i+y][j+x].c = '0'
@@ -92,6 +94,7 @@ Item {
                             field[i+y][j+x].c = '_'
                         }
                 } else {
+
                     if(field[i+y][j+x].c !== '#')
                         field[i+y][j+x].c = figure[i+j*4]
                 }
@@ -101,13 +104,7 @@ Item {
 
 
     function canPut(x,y,figure) { // can figure placed?
-        var i,j,s
-
-        s = ''
-        for(i=0;i<4;i++)
-            for(j=0;j<4;j++) {
-                s = s+ field[i+y][j+x].c
-            }
+        var i,j
 
         for(i=0;i<4;i++)
             for(j=0;j<4;j++) {
@@ -132,11 +129,18 @@ Item {
 
         figcurrent = fig.get()
         figorig = figcurrent
-        figx = w/2
+        figx = w/2-2
         figy = 0
         figdeg = 0
-        putFig(figx,figy,figcurrent, true)
-        updateField()
+        if(canPut(figx,figy,figcurrent)) {
+            putFig(figx,figy,figcurrent, true)
+            updateField()
+        }
+        else {
+            console.log("No more space. Finish")
+            tim.running = false
+        }
+
     }
 
 
@@ -181,23 +185,42 @@ Item {
                 }
             updateFig()
         }
+        Keys.onSpacePressed: { // drop figure
+            var newy
+            newy = figy
+            while(newy === figy) {
+                newy = figy+1
+                if(newy<glass.h-2) {
+                    if(canPut(figx,newy,figcurrent)) {
+                        figy = newy
+                        clearTempField()
+                        putFig(figx,figy,figcurrent, true)
+                        updateField()
+                    }
+                }
+            }
+
+            putFig(figx,figy,figcurrent, false)
+            newFigure()
+
+        }
     }
 
 
     Timer {
         id: tim
-        interval: 1000
+        interval: 500
         repeat: true
         onTriggered: {
             var newy
             newy = figy+1
-            if(newy<glass.h-3) {
+            if(newy<glass.h-2) {
                 if(canPut(figx,newy,figcurrent)) {
                     figy = newy
                 }
             }
             if(newy !== figy) {
-                console.log("BOOM")
+                console.log("BOOM. new figure")
                 putFig(figx,figy,figcurrent, false)
                 newFigure()
             }
