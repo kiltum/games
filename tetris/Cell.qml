@@ -9,6 +9,7 @@ Item {
         if(c === '#') return "blue"
         if(c === '0') return "red"
         if(c === '_') return "black"
+        if(c === '$') return "wheat"
     }
 
     function update() {
@@ -22,6 +23,8 @@ Item {
         height: size
         width: size
         color: getColor()
+        border.color: "black"
+        border.width: 1
     }
 
 }

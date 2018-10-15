@@ -85,9 +85,9 @@ Item {
         for(i=0;i<4;i++)
             for(j=0;j<4;j++) {
                 if(i+y<glass.h)
+                if(j+x<glass.w)
                 if(temp === true) {
-
-                    if(field[i+y][j+x].c !== '#')
+                    if((field[i+y][j+x].c !== '#') && (field[i+y][j+x].c !== '$'))
                         if(figure[i+j*4] === '#') {
                             field[i+y][j+x].c = '0'
                         } else {
@@ -95,8 +95,10 @@ Item {
                         }
                 } else {
 
-                    if(field[i+y][j+x].c !== '#')
-                        field[i+y][j+x].c = figure[i+j*4]
+                    if((field[i+y][j+x].c !== '#') && (field[i+y][j+x].c !== '$'))
+                        if(figure[i+j*4] === '#') {
+                            field[i+y][j+x].c = '$'
+                        }
                 }
             }
     }
@@ -109,7 +111,7 @@ Item {
         for(i=0;i<4;i++)
             for(j=0;j<4;j++) {
                 if(figure[i+j*4] === '#'){
-                    if(field[i+y][j+x].c === '#') {
+                    if((field[i+y][j+x].c === '#') || (field[i+y][j+x].c === '$')) {
                         return false;
                     }
                 }
@@ -179,7 +181,7 @@ Item {
         Keys.onRightPressed: {
             var newx
             newx = figx+1
-            if(newx<glass.w-3)
+            if(newx<glass.w-2)
                 if(canPut(newx,figy,figcurrent)) {
                     figx = newx
                 }
