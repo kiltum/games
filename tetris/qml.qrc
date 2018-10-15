@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>Glass.qml</file>
         <file>Cell.qml</file>
+        <file>Fig.qml</file>
     </qresource>
 </RCC>

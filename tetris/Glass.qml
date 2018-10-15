@@ -1,8 +1,9 @@
 import QtQuick 2.0
 
 Item {
-    property int w: 3
-    property int h: 5
+    id: glass
+    property int w: 10
+    property int h: 20
 
     property int step: 20
 
@@ -26,9 +27,15 @@ Item {
         // fill field as empty
         for(i=0;i<h;i++)
             for(j=0;j<w;j++) {
-                field[i][j] = cell.createObject(inner, {"x": 200+j*step, "y": i*step});
-                field[i][j].c = '#'
-                field[i][j].update()
+                field[i][j] = cell.createObject(inner, {"x": j*step, "y": i*step});
+            }
+    }
+
+    function clearField() {
+        var i,j
+        for(i=0;i<h;i++)
+            for(j=0;j<w;j++) {
+               field[i][j].c = '.'
             }
     }
 
@@ -36,14 +43,24 @@ Item {
         var i,j
         for(i=0;i<h;i++)
             for(j=0;j<w;j++) {
-                if(field[i][j] !== '.') {
-
-                } else { // empty field
-
-                }
-
+               field[i][j].update()
             }
     }
+
+    Fig {
+        id: fig
+    }
+
+
+    function putFig(x,y) {
+        var i,j, f
+        f = fig.get()
+        for(i=0;i<4;i++)
+            for(j=0;j<4;j++) {
+               field[i+y][j+x].c = f[i+j*4]
+            }
+    }
+
 
     Rectangle {
         id: outer
@@ -61,7 +78,21 @@ Item {
             color: "green"
         }
     }
+
+    Timer {
+        id: tim
+        repeat: true
+        onTriggered: {
+            clearField()
+            putFig(2,2)
+            updateField()
+        }
+    }
+
     Component.onCompleted: {
         initField()
+        clearField()
+        updateField()
+        tim.running = true
     }
 }
