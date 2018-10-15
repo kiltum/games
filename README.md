@@ -9,7 +9,8 @@ So I decide to re-create my favorite games as I remember them. And for fun, I wi
 to do this on Qt. So you can compile and run this games on any device that can run with Qt. 
 
 https://github.com/kiltum/games/tree/master/pingpong - PingPong game
+https://github.com/kiltum/games/tree/master/tetris - Tetris
 
 P.S.Yes, I know that we are 
-remember different variations of the same game. Atari, Commodore, Sinclair ZX ...
+remember different variations of the same game. PC, Atari, Commodore, Sinclair ZX ...
 
