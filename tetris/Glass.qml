@@ -150,7 +150,8 @@ Item {
     }
 
     function collapseField() { // remove fully filled rows
-        var i,j,q,g
+        var i,j,q,g,z
+        for(z=0;z<4;z++) // figure can shrink up to 4 rows
         for(i=h-1;i>0;i--) {
             g = 0
             for(j=1;j<w-1;j++) {
