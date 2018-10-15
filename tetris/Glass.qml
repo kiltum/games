@@ -52,12 +52,11 @@ Item {
     }
 
 
-    function putFig(x,y) {
-        var i,j, f
-        f = fig.get()
+    function putFig(x,y, figure) {
+        var i,j
         for(i=0;i<4;i++)
             for(j=0;j<4;j++) {
-               field[i+y][j+x].c = f[i+j*4]
+               field[i+y][j+x].c = figure[i+j*4]
             }
     }
 
@@ -81,11 +80,26 @@ Item {
 
     Timer {
         id: tim
+        interval: 2000
         repeat: true
+        property string f: ""
+        property string fi: ""
+        property int d:0
         onTriggered: {
             clearField()
-            putFig(2,2)
+            fi = fig.rotate(f,d)
+            putFig(2,2,fi)
             updateField()
+            d = d+90
+
+            if(d>270) {
+                d=0
+            }
+
+        }
+
+        Component.onCompleted: {
+            f = fig.get()
         }
     }
 
