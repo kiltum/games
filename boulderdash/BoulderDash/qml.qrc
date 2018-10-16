@@ -3,5 +3,8 @@
         <file>main.qml</file>
         <file>InitialScreen.qml</file>
         <file>sprites/wall_moving_1.png</file>
+        <file>sprites/wall_white.png</file>
+        <file>Cell.qml</file>
+        <file>Scr.qml</file>
     </qresource>
 </RCC>
