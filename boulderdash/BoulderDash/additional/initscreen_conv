@@ -1,0 +1,21 @@
+cat initscreen | cut -f 4-25 -d\ |sed -e 's/03/C/g'|sed -e '08/H/g'|sed -e 's/09/I/g'|sed -e 's/0a/J/g'|sed -e 's/1d/./g'|sed -e 's/1e/./g'|sed -e 's/1f/./g'|tr '\n' ' '|sed -e 's/\ //g'|fold -w 40
+
+
+
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+C......................................C
+C.HCCCI................................C
+C.HC..H.HCCC.HC.H.HC...HCCI.HCCC.HCCI..C
+C.HCCCJ.HC.H.HC.H.HC...HC.H.HC...HC.H..C
+C.HCCCI.HC.H.HC.H.HC...HC.H.HCC..HCCJ..C
+C.HC..H.HC.H.HC.H.HC...HC.H.HC...HCCI..C
+C.HCCCJ.HCCC.HCCC.HCCC.HCCJ.HCCC.HC.H..C
+C......................................C
+C......HCCCI...........................C
+C......HC..H..HCI.HCCC.HC..H...........C
+C......HC..H.HC.H.HC...HC..H...........C
+C......HC..H.HCCC.HCCC.HCCCC...........C
+C......HC..H.HC.H...HC.HC..H...........C
+C......HCCCJ.HC.H.HCCC.HC..H...........C
+C......................................C
+CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
