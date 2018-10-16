@@ -2,9 +2,14 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>InitialScreen.qml</file>
-        <file>sprites/wall_moving_1.png</file>
         <file>sprites/wall_white.png</file>
         <file>Cell.qml</file>
         <file>Scr.qml</file>
+        <file>sprites/wall_gradient.png</file>
+        <file>sprites/wall_moving_orange.png</file>
+        <file>sprites/wall_moving_blue.png</file>
+        <file>sprites/wall_white_top.png</file>
+        <file>sprites/wall_white_bottom.png</file>
+        <file>sound/initial_music.mp3</file>
     </qresource>
 </RCC>

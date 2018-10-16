@@ -18,7 +18,10 @@ Item {
 
     onCChanged: {
         if(c === "C") { loadimage("sprites/wall_white.png",1) }
-        if(c === ".") { loadimage("sprites/wall_moving_1.png",8) }
+        if(c === ".") { loadimage("sprites/wall_moving_blue.png",8) }
+        if(c === "H") { loadimage("sprites/wall_gradient.png",1) }
+        if(c === "I") { loadimage("sprites/wall_white_top.png",1) }
+        if(c === "J") { loadimage("sprites/wall_white_bottom.png",1) }
 
     }
 
