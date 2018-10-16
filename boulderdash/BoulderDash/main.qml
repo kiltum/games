@@ -10,6 +10,7 @@ Window {
     color: "black"
 
     property int spriteSize: 40
+    property real spriteScale: 0.5
 
 
 //    Cell {
@@ -22,5 +23,6 @@ Window {
     }
     Component.onCompleted: {
         first.load(4,4,"CCCCC..CC..CCCCC")
+        console.log(Screen.pixelDensity)
     }
 }

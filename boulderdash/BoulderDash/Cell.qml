@@ -13,6 +13,7 @@ Item {
         frameCount: 1
         frameDuration: 100
         interpolate: false
+        transform: Scale {xScale: main.spriteScale; yScale: main.spriteScale}
     }
 
     onCChanged: {

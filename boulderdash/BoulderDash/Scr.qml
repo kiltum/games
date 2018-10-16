@@ -14,7 +14,9 @@ Item {
 
     function load(w,h,source) {
         var i,j
-        var cell
+        var cell, sz
+
+        sz = main.spriteSize * main.spriteScale
 
         wid = w
         hei = h
@@ -29,7 +31,7 @@ Item {
         // fill field as empty
         for(i=0;i<w;i++)
             for(j=0;j<h;j++) {
-                field[i][j] = cell.createObject(inner, {"x": i*main.spriteSize, "y": j*main.spriteSize, "c": get(i,j)});
+                field[i][j] = cell.createObject(inner, {"x": i*sz, "y": j*sz, "c": get(i,j)});
             }
     }
 }
